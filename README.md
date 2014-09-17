@@ -145,11 +145,15 @@ you can obtain [here](http://www.haskell.org/platform/), then run `make install`
 
 There is also a Chef Cookbook which can be used to manage gamekeeper, if that's how you swing: https://github.com/brendanhay/gamekeeper-cookbook
 
+In Ubuntu:
 ```
 sudo apt-get install haskell-platform
 cabal install cabal-dev
 ls -la ~/.cabal/bin
 ```
+
+In OS X, follow this: http://bob.ippoli.to/archives/2013/01/11/getting-started-with-haskell/#install-cabal-dev
+
 
 ## Configuration
 
@@ -187,8 +191,8 @@ the top-level program and various subcommands via the `--help` switch.
   <tr>
     <td><code>--sink</code></td>
     <td><code>Stdout,,</code></td>
-    <td><code>SINK,HOST,PORT</code></td>
-    <td>Sink options describing the type and host/port combination</td>
+    <td><code>SINK,HOST,PORT,PREFIX</code></td>
+    <td>Sink options describing the type and host/port combination and prefix for the sink</td>
   </tr>
 
   <tr>
