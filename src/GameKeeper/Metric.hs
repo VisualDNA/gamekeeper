@@ -45,9 +45,10 @@ import qualified Network.Metric             as M
 import qualified Network.Metric.Sink.Handle as H
 
 data SinkOptions = SinkOptions
-    { sinkType  :: M.SinkType
-    , sinkHost  :: String
-    , sinkPort  :: Word16
+    { sinkType   :: M.SinkType
+    , sinkHost   :: String
+    , sinkPort   :: Word16
+    , sinkPrefix :: String
     } deriving (Data, Typeable, Read, Show)
 
 --
@@ -55,17 +56,20 @@ data SinkOptions = SinkOptions
 --
 
 defaultSinkOpts :: SinkOptions
-defaultSinkOpts = SinkOptions M.Stdout "" 0
+defaultSinkOpts = SinkOptions M.Stdout "" 0 ""
 
 open :: BS.ByteString -> SinkOptions -> IO M.AnySink
 open host SinkOptions{..} = sink
   where
-    sink | sinkType == M.Stdout = return . M.AnySink $ H.SinkHandle host logInfo
-         | otherwise            = M.open sinkType host sinkHost port
+    sink | sinkType == M.Stdout = return . M.AnySink $ H.SinkHandle host logInfo 
+         | otherwise            = M.open sinkType byteHost sinkHost port
     port = fromIntegral sinkPort
+    modHost = sinkPrefix ++ "." ++ BS.unpack host
+    byteHost = BS.pack modHost
+    
 
 group :: M.Group
-group = "rabbit"
+group = ""
 
 bucket :: M.Bucket -> M.Bucket -> M.Bucket
 bucket a b = BS.intercalate "." [a, b]

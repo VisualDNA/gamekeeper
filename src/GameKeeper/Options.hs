@@ -270,10 +270,10 @@ memoryFlag = healthFlag "memory" upd
     upd o w c = o { optMemory = Health w c }
 
 sinkFlag :: String -> Flag Options
-sinkFlag = flagReq ["sink"] upd "SINK,HOST,PORT"
+sinkFlag = flagReq ["sink"] upd "SINK,HOST,PORT,PREFIX"
   where
     upd s o = Right o
         { optSink = case splitOn "," s of
-              (x:y:z:_) -> SinkOptions (read x :: SinkType) y (read z :: Word16)
-              _         -> error $ "Failed to parse SinkOptions from SINK,HOST,PORT from: " ++ s
+              (w:x:y:z:_) -> SinkOptions (read w :: SinkType) x (read y :: Word16) z
+              _         -> error $ "Failed to parse SinkOptions from SINK,HOST,PORT,PREFIX from: " ++ s
         }

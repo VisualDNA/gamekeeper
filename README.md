@@ -145,6 +145,11 @@ you can obtain [here](http://www.haskell.org/platform/), then run `make install`
 
 There is also a Chef Cookbook which can be used to manage gamekeeper, if that's how you swing: https://github.com/brendanhay/gamekeeper-cookbook
 
+```
+sudo apt-get install haskell-platform
+cabal install cabal-dev
+ls -la ~/.cabal/bin
+```
 
 ## Configuration
 
@@ -277,6 +282,9 @@ the top-level program and various subcommands via the `--help` switch.
 After a successful compile, the `./gamekeeper` symlink will be pointing to
 the built binary under `./dist`
 
+```
+gamekeeper/gamekeeper measure --days 30 --uri http://username:password@localhost:15672/ --sink Graphite,graphite.localhost,2003,stag.rabbit 
+```
 
 ## Contribute
 

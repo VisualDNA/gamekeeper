@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-CABAL := `which cabal-dev`
+CABAL := ~/.cabal/bin/cabal-dev
 
 #
 # Build
